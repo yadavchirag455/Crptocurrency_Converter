@@ -9,7 +9,7 @@ class PriceScreen extends StatefulWidget {
 }
 
 class _PriceScreenState extends State<PriceScreen> {
-  String? selectedValue = currenciesList[0];
+  String? selectedValue = currenciesList[19];
 
   List<DropdownMenuItem<String>> getDropDownItem() {
     List<DropdownMenuItem<String>> dropDownItems = [];
@@ -27,16 +27,31 @@ class _PriceScreenState extends State<PriceScreen> {
   }
 
   dynamic resultsOfApi;
+  bool isloading = true;
+
+  // dynamic resultsOfApi2;
 
   void fetchAPIData() async {
     var res = await http.get(Uri.parse(
-        'https://rest.coinapi.io/v1/exchangerate/BTC/USD?apiKey=5BEBFEE3-071F-4601-ADBE-DB1DD2E57D84'));
+        'https://rest.coinapi.io/v1/exchangerate/BTC/${selectedValue}?apiKey=5BEBFEE3-071F-4601-ADBE-DB1DD2E57D84'));
 
     resultsOfApi = jsonDecode(res.body);
+
+    isloading = false;
 
     setState(() {});
     print(resultsOfApi['rate'].toString);
   }
+
+  // void fetchAPIData2() async {
+  //   var res = await http.get(Uri.parse(
+  //       'https://rest.coinapi.io/v1/exchangerate/BTC/USD?apiKey=5BEBFEE3-071F-4601-ADBE-DB1DD2E57D84'));
+  //
+  //   resultsOfApi2 = jsonDecode(res.body);
+  //
+  //   setState(() {});
+  //   print(resultsOfApi2['rate'].toString);
+  // }
 
   @override
   void initState() {
@@ -52,91 +67,140 @@ class _PriceScreenState extends State<PriceScreen> {
         title: const Text('🤑 Coin Ticker'),
         centerTitle: true,
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.fromLTRB(18.0, 18.0, 18.0, 0),
-            child: Card(
-              color: Colors.lightBlueAccent,
-              elevation: 5.0,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10.0),
-              ),
-              child: Padding(
-                padding: EdgeInsets.symmetric(vertical: 15.0, horizontal: 28.0),
-                child: Text(
-                  '1 BTC = ${resultsOfApi['rate'].toStringAsFixed(2)} USD',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 20.0,
-                    color: Colors.white,
+      body: isloading
+          ? Center(child: CircularProgressIndicator())
+          : Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(18.0, 18.0, 18.0, 0),
+                  child: Card(
+                    color: Colors.lightBlueAccent,
+                    elevation: 5.0,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(
+                          vertical: 15.0, horizontal: 28.0),
+                      child: Text(
+                        '1 BTC = ${resultsOfApi['rate'].toInt()} ${selectedValue}',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontSize: 20.0,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
                   ),
                 ),
-              ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(18.0, 18.0, 18.0, 0),
-            child: Card(
-              color: Colors.lightBlueAccent,
-              elevation: 5.0,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10.0),
-              ),
-              child: Padding(
-                padding: EdgeInsets.symmetric(vertical: 15.0, horizontal: 28.0),
-                child: Text(
-                  '1 BTC = ${resultsOfApi['rate'].toStringAsFixed(2)} USD',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 20.0,
-                    color: Colors.white,
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(18.0, 18.0, 18.0, 0),
+                  child: Card(
+                    color: Colors.lightBlueAccent,
+                    elevation: 5.0,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(
+                          vertical: 15.0, horizontal: 28.0),
+                      child: Text(
+                        '1 ETH = ${resultsOfApi['rate'].toInt()} ${selectedValue}',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontSize: 20.0,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
                   ),
                 ),
-              ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(18.0, 18.0, 18.0, 0),
-            child: Card(
-              color: Colors.lightBlueAccent,
-              elevation: 5.0,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10.0),
-              ),
-              child: Padding(
-                padding: EdgeInsets.symmetric(vertical: 15.0, horizontal: 28.0),
-                child: Text(
-                  '1 BTC = ${resultsOfApi['rate'].toStringAsFixed(2)} USD',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 20.0,
-                    color: Colors.white,
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(18.0, 18.0, 18.0, 0),
+                  child: Card(
+                    color: Colors.lightBlueAccent,
+                    elevation: 5.0,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(
+                          vertical: 15.0, horizontal: 28.0),
+                      child: Text(
+                        '1 LTC = ${resultsOfApi['rate'].toInt()} ${selectedValue}',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontSize: 20.0,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
                   ),
                 ),
-              ),
-            ),
-          ),
-          Container(
-            height: 150.0,
-            alignment: Alignment.center,
-            padding: const EdgeInsets.only(bottom: 30.0),
-            color: Colors.lightBlue,
-            child: DropdownButton<String>(
-              value: selectedValue,
-              items: getDropDownItem(),
-              onChanged: (value) {
-                selectedValue = value;
-                setState(() {});
 
-                print(selectedValue);
-              },
+                // Padding(
+                //   padding: const EdgeInsets.fromLTRB(18.0, 18.0, 18.0, 0),
+                //   child: Card(
+                //     color: Colors.lightBlueAccent,
+                //     elevation: 5.0,
+                //     shape: RoundedRectangleBorder(
+                //       borderRadius: BorderRadius.circular(10.0),
+                //     ),
+                //     child: Padding(
+                //       padding: EdgeInsets.symmetric(vertical: 15.0, horizontal: 28.0),
+                //       child: Text(
+                //         '1 BTC = ${resultsOfApi['rate'].toStringAsFixed(2)} USD',
+                //         textAlign: TextAlign.center,
+                //         style: TextStyle(
+                //           fontSize: 20.0,
+                //           color: Colors.white,
+                //         ),
+                //       ),
+                //     ),
+                //   ),
+                // ),
+                // Padding(
+                //   padding: const EdgeInsets.fromLTRB(18.0, 18.0, 18.0, 0),
+                //   child: Card(
+                //     color: Colors.lightBlueAccent,
+                //     elevation: 5.0,
+                //     shape: RoundedRectangleBorder(
+                //       borderRadius: BorderRadius.circular(10.0),
+                //     ),
+                //     child: Padding(
+                //       padding: EdgeInsets.symmetric(vertical: 15.0, horizontal: 28.0),
+                //       child: Text(
+                //         '1 BTC = ${resultsOfApi['rate'].toStringAsFixed(2)} ${selectedValue}',
+                //         textAlign: TextAlign.center,
+                //         style: TextStyle(
+                //           fontSize: 20.0,
+                //           color: Colors.white,
+                //         ),
+                //       ),
+                //     ),
+                //   ),
+                // ),
+                Container(
+                  height: 150.0,
+                  alignment: Alignment.center,
+                  padding: const EdgeInsets.only(bottom: 30.0),
+                  color: Colors.lightBlue,
+                  child: DropdownButton<String>(
+                    value: selectedValue,
+                    items: getDropDownItem(),
+                    onChanged: (value) {
+                      selectedValue = value;
+                      setState(() {});
+
+                      print(selectedValue);
+                      fetchAPIData();
+                    },
+                  ),
+                ),
+              ],
             ),
-          ),
-        ],
-      ),
     );
   }
 }
